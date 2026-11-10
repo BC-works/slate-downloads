@@ -21,7 +21,8 @@ const checksumName=`Slate-${version}-SHA256SUMS.txt`;
 const sums=[...files].sort((a,b)=>a.name.localeCompare(b.name,'en')).map(file=>`${file.sha256}  ${file.name}\n`).join('');
 const expected=new Map(files.map(file=>[file.name,file.sha256]));expected.set(checksumName,createHash('sha256').update(sums).digest('hex'));
 function api(endpoint){return JSON.parse(execFileSync('gh',['api',endpoint],{encoding:'utf8',stdio:['ignore','pipe','pipe']}));}
-function release(){try{return api(`repos/${repository}/releases/tags/${tag}`);}catch(error){if(String(error.stdout).includes('"status":"404"'))return null;throw error;}}
+function missing(error){try{if(String(JSON.parse(String(error.stdout)).status)==='404')return true;}catch{}return String(error.stderr).includes('(HTTP 404)');}
+function release(){try{return api(`repos/${repository}/releases/tags/${tag}`);}catch(error){if(missing(error))return null;throw error;}}
 function assertComplete(release){
   if(release.assets.length!==expected.size)throw new Error('Published asset set is incomplete or contains unexpected files');
   for(const asset of release.assets)if(asset.state!=='uploaded'||asset.digest!==`sha256:${expected.get(asset.name)}`)throw new Error(`Published asset differs: ${asset.name}`);
@@ -29,7 +30,7 @@ function assertComplete(release){
 const existing=release();
 if(existing&&!existing.draft){assertComplete(existing);console.log(`Release ${tag} already has identical verified assets.`);process.exit(0);}
 let latest;
-try{latest=api(`repos/${repository}/releases/latest`);}catch(error){if(!String(error.stdout).includes('\"status\":\"404\"'))throw error;}
+try{latest=api(`repos/${repository}/releases/latest`);}catch(error){if(!missing(error))throw error;}
 if(latest){
   const before=latest.tag_name.replace(/^v/,'').split('.').map(Number),after=version.split('.').map(Number);
   const first=after.findIndex((part,index)=>part!==before[index]);
