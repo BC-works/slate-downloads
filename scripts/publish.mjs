@@ -22,7 +22,15 @@ const sums=[...files].sort((a,b)=>a.name.localeCompare(b.name,'en')).map(file=>`
 const expected=new Map(files.map(file=>[file.name,file.sha256]));expected.set(checksumName,createHash('sha256').update(sums).digest('hex'));
 function api(endpoint){return JSON.parse(execFileSync('gh',['api',endpoint],{encoding:'utf8',stdio:['ignore','pipe','pipe']}));}
 function missing(error){try{if(String(JSON.parse(String(error.stdout)).status)==='404')return true;}catch{}return String(error.stderr).includes('(HTTP 404)');}
-function release(){try{return api(`repos/${repository}/releases/tags/${tag}`);}catch(error){if(missing(error))return null;throw error;}}
+function release(){
+  try{return api(`repos/${repository}/releases/tags/${tag}`);}catch(error){if(!missing(error))throw error;}
+  // A draft for a new tag has no Git ref until publication; lookup by tag returns 404.
+  for(let page=1;;page++){
+    const releases=api(`repos/${repository}/releases?per_page=100&page=${page}`);
+    const match=releases.find(release=>release.tag_name===tag);if(match)return match;
+    if(releases.length<100)return null;
+  }
+}
 function assertComplete(release){
   if(release.assets.length!==expected.size)throw new Error('Published asset set is incomplete or contains unexpected files');
   for(const asset of release.assets)if(asset.state!=='uploaded'||asset.digest!==`sha256:${expected.get(asset.name)}`)throw new Error(`Published asset differs: ${asset.name}`);
