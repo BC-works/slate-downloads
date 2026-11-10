@@ -4,6 +4,8 @@ Slate is a desktop notebook with persistent tabs, groups, local saving, and dura
 
 ## Install
 
+Slate 1.5 reduces editing allocations, bounds reconstructed-text caches, and mounts only a viewport of long lists while preserving full history and saving guarantees. A synthetic 1,224-note Linux search workload measured about 26% less proportional process memory than 1.4.0; smaller libraries and other operating systems may see different savings. Full history remains loaded in this optimization pass.
+
 Slate 1.4 includes larger interface text, a sidebar hide/show button, separate Pinned and Recent sections, a left-aligned editor with a title divider, and a search dialog with matching snippets and keyboard selection. Closing an unused blank draft removes it from the live library; notes with meaningful text/title history remain recoverable.
 
 Download the latest version from [Releases](https://github.com/BC-works/slate-downloads/releases/latest).
