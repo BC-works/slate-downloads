@@ -1,0 +1,36 @@
+name: Publish downloads
+run-name: Publish ${{ inputs.tag }} · ${{ inputs.request_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Stable version tag
+        required: true
+      request_id:
+        description: Unique publication request ID
+        required: true
+      manifest:
+        description: Approved binary asset transfer manifest
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify and publish approved distribution assets
+        run: node scripts/publish.mjs
