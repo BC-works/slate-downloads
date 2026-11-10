@@ -4,6 +4,8 @@ Slate is a desktop notebook with persistent tabs, groups, local saving, and dura
 
 ## Install
 
+Slate 1.4 includes larger interface text, a sidebar hide/show button, separate Pinned and Recent sections, a left-aligned editor with a title divider, and a search dialog with matching snippets and keyboard selection. Closing an unused blank draft removes it from the live library; notes with meaningful text/title history remain recoverable.
+
 Download the latest version from [Releases](https://github.com/BC-works/slate-downloads/releases/latest).
 
 - **Windows x64:** run `Slate-<version>-Setup-x64.exe`. Existing notes are preserved.
