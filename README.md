@@ -1,6 +1,6 @@
 # Slate downloads
 
-A little room to think. Slate is a desktop notebook with persistent tabs, groups, local saving, and durable note history.
+Slate is a desktop notebook with persistent tabs, groups, local saving, and durable note history.
 
 ## Install
 
