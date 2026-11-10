@@ -10,7 +10,9 @@ Download the latest version from [Releases](https://github.com/BC-works/slate-do
 - **Linux x64:** download `Slate-<version>-x86_64.AppImage`, make it executable, then open it. Keep it in a folder you can write to so it can update itself.
 - The Linux tar archive is available for manual installation; in-app installation of updates requires the AppImage.
 
-Version 1.2 and later can check for updates from **Help → Check for updates** or About. Download the update, then choose **Restart to install**. Slate saves your workspace and creates a backup before installing. Ordinary closing does not silently install a downloaded update.
+Version 1.3 and later checks for updates on startup. **Update available** appears above **On this device**, with background download progress below it. Once verified, Slate saves your workspace, creates a backup, installs silently, and relaunches automatically. Save or backup failures pause installation and keep the app open for recovery. **Help → Check for updates** and About also show update status.
+
+If you are on 1.2, use **Download update → Restart to install** once to get 1.3. Subsequent updates are automatic.
 
 If you have the older ZIP build, install the new Windows installer or switch to the Linux AppImage once. Future updates can happen inside Slate.
 
