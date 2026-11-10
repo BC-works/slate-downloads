@@ -9,7 +9,7 @@ const manifest=JSON.parse(event.inputs.manifest),repository=process.env.GITHUB_R
 if(repository!=='BC-works/slate-downloads')throw new Error('Unexpected distribution repository');
 const {version,tag,requestId,files,notes}=manifest;
 if(manifest.schema!==1||!/^\d+\.\d+\.\d+$/.test(version)||tag!==`v${version}`||tag!==event.inputs.tag||requestId!==event.inputs.request_id)throw new Error('Invalid release identity');
-const required=[`Slate-${version}-Setup-x64.exe`,`Slate-${version}-Setup-x64.exe.blockmap`,`Slate-${version}-x64.AppImage`,`Slate-${version}-x64.tar.gz`,'latest.yml','latest-linux.yml'].sort();
+const required=[`Slate-${version}-Setup-x64.exe`,`Slate-${version}-Setup-x64.exe.blockmap`,`Slate-${version}-x86_64.AppImage`,`Slate-${version}-x64.tar.gz`,'latest.yml','latest-linux.yml'].sort();
 if(!Array.isArray(files)||files.length!==required.length||JSON.stringify(files.map(f=>f.name).sort())!==JSON.stringify(required))throw new Error('Only the six approved distribution files may be published');
 if(typeof notes!=='string'||notes.length>10000)throw new Error('Invalid public release notes');
 for(const file of files){
@@ -47,7 +47,7 @@ await Promise.all(files.map(async file=>{
   hashes.set(file.name,sha512.digest('base64'));
   console.log(`Verified ${file.name}`);
 }));
-for(const [metadata,binary]of [['latest.yml',`Slate-${version}-Setup-x64.exe`],['latest-linux.yml',`Slate-${version}-x64.AppImage`]]){
+for(const [metadata,binary]of [['latest.yml',`Slate-${version}-Setup-x64.exe`],['latest-linux.yml',`Slate-${version}-x86_64.AppImage`]]){
   const text=readFileSync(`release-files/${metadata}`,'utf8');
   const clean=value=>value.trim().replace(/^['"]|['"]$/g,'');
   if(clean(text.match(/^version:\s*(.+)$/m)?.[1]||'')!==version)throw new Error('Update manifest version mismatch');

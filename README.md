@@ -7,7 +7,7 @@ A little room to think. Slate is a desktop notebook with persistent tabs, groups
 Download the latest version from [Releases](https://github.com/BC-works/slate-downloads/releases/latest).
 
 - **Windows x64:** run `Slate-<version>-Setup-x64.exe`. Existing notes are preserved.
-- **Linux x64:** download `Slate-<version>-x64.AppImage`, make it executable, then open it. Keep it in a folder you can write to so it can update itself.
+- **Linux x64:** download `Slate-<version>-x86_64.AppImage`, make it executable, then open it. Keep it in a folder you can write to so it can update itself.
 - The Linux tar archive is available for manual installation; in-app installation of updates requires the AppImage.
 
 Version 1.2 and later can check for updates from **Help → Check for updates** or About. Download the update, then choose **Restart to install**. Slate saves your workspace and creates a backup before installing. Ordinary closing does not silently install a downloaded update.
