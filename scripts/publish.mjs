@@ -28,6 +28,13 @@ function assertComplete(release){
 }
 const existing=release();
 if(existing&&!existing.draft){assertComplete(existing);console.log(`Release ${tag} already has identical verified assets.`);process.exit(0);}
+let latest;
+try{latest=api(`repos/${repository}/releases/latest`);}catch(error){if(!String(error.stdout).includes('\"status\":\"404\"'))throw error;}
+if(latest){
+  const before=latest.tag_name.replace(/^v/,'').split('.').map(Number),after=version.split('.').map(Number);
+  const first=after.findIndex((part,index)=>part!==before[index]);
+  if(before.length!==3||after.some(part=>!Number.isSafeInteger(part))||first<0||after[first]<before[first])throw new Error('A stable public release must advance the latest version');
+}
 mkdirSync('release-files',{recursive:true});
 const hashes=new Map();
 await Promise.all(files.map(async file=>{
