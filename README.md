@@ -4,7 +4,9 @@ Slate is a desktop notebook with persistent tabs, nested subnotes, groups, local
 
 ## Install
 
-Slate 1.7 adds independent subnotes with blue, bordered tabs below the heading and expandable sidebar arrows. Each note can contain further subnotes. Child tabs, selected paths, and expansion return after reopening. Use **New subnote**, the blue row's **+**, or **Note → Move under note…** to organize existing notes; promote a child with **Make a top-level note**. The sidebar defaults to 320px and resizes up to 520px. Search shows ancestor paths and export-all preserves nested folders.
+Slate 1.7.1 refines subnotes into comfortable notebook pages. Their surfaces, borders, text, and accents follow Paper, Midnight, Forest, or the current system appearance. A brief page turn accompanies switching subnotes; editing stops the motion immediately, and reduced-motion preferences disable it. Startup and switching root notes stay immediate.
+
+Slate 1.7 adds independent subnotes with theme-matched page tabs below the heading and expandable sidebar arrows. Each note can contain further subnotes. Child tabs, selected paths, and expansion return after reopening. Use **New subnote**, the subnote row's **+**, or **Note → Move under note…** to organize existing notes; promote a child with **Make a top-level note**. The sidebar defaults to 320px and resizes up to 520px. Search shows ancestor paths and export-all preserves nested folders.
 
 Children follow their root's group. Archiving/trashing a parent includes its branch while preserving a child's independent status. A blank parent with children is kept when its tab closes. Older libraries are backed up before migration; text and revision history stay intact.
 
