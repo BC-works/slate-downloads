@@ -1,8 +1,12 @@
 # Slate downloads
 
-Slate is a desktop notebook with persistent tabs, groups, local saving, and durable note history.
+Slate is a desktop notebook with persistent tabs, nested subnotes, groups, local saving, and durable note history.
 
 ## Install
+
+Slate 1.7 adds independent subnotes with blue, bordered tabs below the heading and expandable sidebar arrows. Each note can contain further subnotes. Child tabs, selected paths, and expansion return after reopening. Use **New subnote**, the blue row's **+**, or **Note → Move under note…** to organize existing notes; promote a child with **Make a top-level note**. The sidebar defaults to 320px and resizes up to 520px. Search shows ancestor paths and export-all preserves nested folders.
+
+Children follow their root's group. Archiving/trashing a parent includes its branch while preserving a child's independent status. A blank parent with children is kept when its tab closes. Older libraries are backed up before migration; text and revision history stay intact.
 
 Slate 1.5 reduces editing allocations, bounds reconstructed-text caches, and mounts only a viewport of long lists while preserving full history and saving guarantees. A synthetic 1,224-note Linux search workload measured about 26% less proportional process memory than 1.4.0; smaller libraries and other operating systems may see different savings. Full history remains loaded in this optimization pass.
 
@@ -16,7 +20,7 @@ Download the latest version from [Releases](https://github.com/BC-works/slate-do
 
 Version 1.6 and later checks for updates on startup and waits for your click. **Download update** appears above **On this device**; click it to download with progress underneath. When verified, the button becomes **Restart to update**. You can keep writing until you click it. Slate then saves your workspace, creates a backup, installs silently, and relaunches. Save or backup failures keep the app open for recovery. Normal closing never installs a downloaded package. **Help → Check for updates** and About also show details and the same actions.
 
-Versions 1.3–1.5 retain their old automatic behavior while acquiring 1.6 and may install it automatically once. The new click-to-download and click-to-restart policy applies after 1.6 is installed. If you are on 1.2, use its existing Download update and Restart to install controls once.
+Versions 1.3–1.5 retain their old automatic behavior while acquiring a newer release and may install it automatically once. The click-to-download and click-to-restart policy applies after upgrading to 1.6 or later. If you are on 1.2, use its existing Download update and Restart to install controls once.
 
 If you have the older ZIP build, install the new Windows installer or switch to the Linux AppImage once. Future updates can happen inside Slate.
 
