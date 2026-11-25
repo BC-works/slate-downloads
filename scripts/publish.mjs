@@ -6,7 +6,8 @@ import {pipeline} from 'node:stream/promises';
 
 const event=JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH));
 const manifest=JSON.parse(event.inputs.manifest),repository=process.env.GITHUB_REPOSITORY;
-if(repository!=='BC-works/slate-downloads')throw new Error('Unexpected distribution repository');
+// A transfer changes the owner in GITHUB_REPOSITORY and preserves the repository ID.
+if(process.env.GITHUB_REPOSITORY_ID!=='1452939906'||event.repository?.private!==false)throw new Error('Expected the public Slate downloads repository.');
 const {version,tag,requestId,files,notes}=manifest;
 if(manifest.schema!==1||!/^\d+\.\d+\.\d+$/.test(version)||tag!==`v${version}`||tag!==event.inputs.tag||requestId!==event.inputs.request_id)throw new Error('Invalid release identity');
 const required=[`Slate-${version}-Setup-x64.exe`,`Slate-${version}-Setup-x64.exe.blockmap`,`Slate-${version}-x86_64.AppImage`,`Slate-${version}-x64.tar.gz`,'latest.yml','latest-linux.yml'].sort();
